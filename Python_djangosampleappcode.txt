@@ -1,0 +1,180 @@
+In order to create a sample python-django project 
+
+Note: If you do not have python in your pc at https://www.python.org/downloads/
+
+While installation select Include Path, like click on add python path. Then only it will recognise pip command.
+
+
+1) Open Command Prompt and give the path that you want to create your project in
+
+Ex: D://
+
+2) Make a directory for the project you want to create in
+
+mkdir <dirname>
+
+3) Now change the directory to the newly created one
+
+cd <dirname>
+
+4) Now Creating Virtual Environment for Application Development
+
+pip install virtualenvwrapper-win
+
+5) Create virtual environment with the following command
+
+mkvirtualenv myvirutalenvironment(user defined)
+
+if this command excute an error please fire the below alternate commands:
+
+	py -m pip install --user virtualenv
+
+	py -m venv (Project_Name)
+
+	.\(Project_Name)\Scripts\activate
+----------------------------------------------------------------------------------------------------------------------------------
+Now we need to Install Django, Create a project and projectapp in virtual environment
+
+6) To install Django 
+
+pip install django
+
+7) To create project
+
+django-admin startproject <projectname>
+
+Note: projectname is user defined, once project created navigate to the folder then create the app, because app is the subset of the project
+
+Once we create the project, A folder with the project name will be created in the given Path.
+
+8) To create app
+
+python manage.py startapp <appname>
+
+Note: Complete Folder structure will be created for project and app inside it.
+
+9) To run the server properly
+
+python manage.py runserver
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Now to develop the project app
+
+Open the project root folder using visual studio code, that open the complete Project including projectapp. 
+
+
+--> In root folder create the folders as below:
+
+templates: In which we store all html files
+static: In which we store all Images, css and javascript files
+
+Note: The folder in which manage.py exists is called root folder.
+
+10) Go to your project -urls.py inside it
+
+from django.contrib import admin
+from django.urls import path,include
+
+urlpatterns=[
+path('admin/',admin.site.urls),
+path('',include('app_name')),
+]
+
+10) Create a new file in project app with the name urls.py 
+
+    < 
+      from django.urls import path
+      from . import views
+          
+       urlpatterns=[
+            path('',views.index,name='index')
+       ]
+                 >
+
+11) Open file views.py in project app
+
+< 
+
+from django.shortcuts import render
+
+
+def index(request):
+    return render(request,'index.html')
+
+>
+
+Now go to your local repo where your project is there, create a new folder called 'template' in put index.html file inside.
+
+--> Now in VS Code, a new folder called template will appear. Inside it we need to create index.html file.
+
+---> now inside index.html <<< run doc >>> (which will launch html body for a website)
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>welcome to my website</h1>
+ </body>
+</html>
+
+-->
+
+Now we need to Change in settings.py in Templates as
+  TEMPLATES = [
+      {
+         'BACKEND':'django.template.template.backends.django.DjangoTemplates'
+         'DIRS':[BASE_DIR,'templates'],
+
+12) To Run the application do the following:
+
+--> open new terminal under terminal menu
+
+--> Under terminal type below
+
+>>>> python manage.py runserver
+
+Copy the URL: http://127.0.0.1:8000/ and type in the browser, index.html will be launched
+-------------------------------------------------------------------------------------------------------------------------------------
+--> to include images, css or java script we need to create a static folder
+
+<<<To register static folder do below>>>
+
+import os
+
+Add a new property below static_url as show below:
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
+
+--> For example if we want to put an image inside static folder
+
+First, create a sub folder inside static folder and the copy image you wanna dump in your website over there.
+
+then change your index.html file with DTL (Django template language)
+
+--> 
+
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>welcome to my website</h1>
+    <img src="{% static 'DSC03641.JPG' width='42px' %}"/>
+</body>
+</html>
+
+--> run your server again and see image updation.
+
+------------------------------------------------------THE END----------------------------------------------------------------------
+
+
+
+
+
